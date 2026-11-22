@@ -1,59 +1,63 @@
 # MoviePicker
 
-MoviePicker is a small Android app for people who can't decide what to watch. It shows a wheel of movies. Spin it, and whichever movie it stops on is tonight's pick.
+MoviePicker é um pequeno app Android para quem não consegue decidir o que assistir. Ele mostra uma roleta de filmes: gire, e o filme em que ela parar é a escolha da noite.
 
-## How it works
+<p align="center">
+  <img src="docs/screenshot.jpg" alt="Tela do MoviePicker com a roleta de filmes e o botão Spin" width="300">
+</p>
 
-- **Spin button**: tap **Spin** in the middle of the screen to send the wheel spinning at a random speed.
-- **Fling the wheel**: you can also drag the wheel to turn it, or flick it to spin it yourself. The spin follows the direction of your finger.
-- **Result**: the wheel slows down and stops, and the movie it lands on appears at the bottom of the screen. While it's moving, the text reads "Rotating..".
+## Como funciona
 
-The wheel has 12 slices of 30° each:
+- **Botão Spin**: toque em **Spin**, no centro da tela, para girar a roleta com uma velocidade aleatória.
+- **Girar com o dedo**: você também pode arrastar a roleta para girá-la ou dar um "peteleco" para girá-la você mesmo. O giro segue a direção do seu dedo.
+- **Resultado**: a roleta desacelera até parar, e o filme indicado pela seta aparece na parte de baixo da tela. Enquanto ela gira, o texto mostra "Rotating..".
 
-| Movies | | |
+A roleta tem 12 fatias de 30° cada:
+
+| Filmes | | |
 | --- | --- | --- |
 | Lord of the Rings | Donnie Darko | Filth |
 | Monty Python | Pulp Fiction | Star Wars |
 | Jurassic Park | A Clockwork Orange | Shaun of the Dead |
 | Superbad | American Beauty | Scott Pilgrim vs. the World |
 
-## Project structure
+## Estrutura do projeto
 
-| Path | Description |
+| Caminho | Descrição |
 | --- | --- |
-| `app/src/main/java/.../MainActivity.java` | All app logic: touch handling, fling detection, the spin animation and mapping the final angle to a movie |
-| `app/src/main/res/layout/activity_main.xml` | Layout: the background, the wheel image, the round Spin button and the result text |
-| `app/src/main/res/drawable/` | Images for the wheel, the backgrounds and the button shape |
+| `app/src/main/java/.../MainActivity.java` | Toda a lógica do app: toques, detecção do gesto de arremesso, animação do giro e conversão do ângulo final em um filme |
+| `app/src/main/res/layout/activity_main.xml` | Layout: fundo, imagem da roleta, botão redondo Spin e texto do resultado |
+| `app/src/main/res/drawable/` | Imagens da roleta, dos fundos e o formato do botão |
 
-How the spin works: the wheel image is rotated with a `Matrix`. A `GestureDetector` turns flicks into rotation speed, and a `Runnable` reposts itself on each frame, rotating the wheel and reducing the speed until it drops below a threshold. The final angle is then normalized to 0–360° and matched to a movie.
+Como o giro funciona: a imagem da roleta é rotacionada com uma `Matrix`. Um `GestureDetector` converte os gestos em velocidade de rotação, e um `Runnable` se reagenda a cada quadro, girando a roleta e reduzindo a velocidade até ela ficar abaixo de um limite. O ângulo final é então normalizado para 0–360° e associado a um filme.
 
-The rotary dial code is based on the tutorial by [Ralf Wondratschek](http://www.vrallev.net).
+O código da roleta é baseado no tutorial de [Ralf Wondratschek](http://www.vrallev.net).
 
-## Requirements
+## Requisitos
 
-- Android Studio (recent version)
-- JDK 17 (Android Studio's bundled JDK works)
+- Android Studio (versão recente)
+- JDK 17 (o JDK que vem com o Android Studio funciona)
 - Android SDK Platform 35
-- A device or emulator running Android 5.0 (API 21) or newer
+- Um dispositivo ou emulador com Android 5.0 (API 21) ou superior
 
-## Build and run
+## Como compilar e executar
 
-1. Clone the repository:
+1. Clone o repositório:
    ```sh
    git clone https://github.com/LorenzoFeldens/MoviePicker.git
    ```
-2. Open the folder in Android Studio and let Gradle sync. This creates `local.properties` with your SDK path.
-3. Run the `app` configuration on a device or emulator.
+2. Abra a pasta no Android Studio e aguarde a sincronização do Gradle. Ela cria o `local.properties` com o caminho do seu SDK.
+3. Execute a configuração `app` em um dispositivo ou emulador.
 
-To build from the command line instead:
+Para compilar pela linha de comando:
 
 ```sh
 ./gradlew assembleDebug
 ```
 
-The APK is written to `app/build/outputs/apk/debug/app-debug.apk`.
+O APK é gerado em `app/build/outputs/apk/debug/app-debug.apk`.
 
-## Tech stack
+## Tecnologias
 
 - Java
 - Gradle 9.3, Android Gradle Plugin 8.13.2
